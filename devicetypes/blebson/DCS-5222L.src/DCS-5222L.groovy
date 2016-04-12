@@ -51,7 +51,7 @@ metadata {
     input("CameraPort", "string", title:"Camera Port", description: "Please enter your camera's Port", defaultValue: 80 , required: true, displayDuringSetup: true)
     input("CameraUser", "string", title:"Camera User", description: "Please enter your camera's username", required: true, defaultvalue: "admin", displayDuringSetup: true)
     input("CameraPassword", "password", title:"Camera Password", description: "Please enter your camera's password", required: true, displayDuringSetup: true)
-    input("CameraPreset", "string", title:"Camera Preset", description: "Please enter the name of the preset view you want to use (other than 'Home')", defaultValue: 1 , required: false, displayDuringSetup: true)
+    input("CameraPreset", "string", title:"Camera Preset", description: "Please enter the name of the preset view you want to use (other than 'Home')", required: false, displayDuringSetup: true)
 	}
     
 	simulator {
