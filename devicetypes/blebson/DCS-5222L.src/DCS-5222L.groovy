@@ -15,7 +15,7 @@
  */
 metadata {
 	definition (name: "DCS-5222L", author: "blebson") {
-        capability "Video capture"
+        //capability "Video capture"
         capability "Image Capture"
 	    capability "Sensor"
 	    capability "Switch"
@@ -49,8 +49,8 @@ metadata {
     preferences {
     input("CameraIP", "string", title:"Camera IP Address", description: "Please enter your camera's IP Address", required: true, displayDuringSetup: true)
     input("CameraPort", "string", title:"Camera Port", description: "Please enter your camera's Port", defaultValue: 80 , required: true, displayDuringSetup: true)
-    input("CameraUser", "string", title:"Camera User", description: "Please enter your camera's username", required: false, displayDuringSetup: true)
-    input("CameraPassword", "password", title:"Camera Password", description: "Please enter your camera's password", required: false, displayDuringSetup: true)
+    input("CameraUser", "string", title:"Camera User", description: "Please enter your camera's username", required: true, defaultvalue: "admin", displayDuringSetup: true)
+    input("CameraPassword", "password", title:"Camera Password", description: "Please enter your camera's password", required: true, displayDuringSetup: true)
     input("CameraPreset", "string", title:"Camera Preset", description: "Please enter the name of the preset view you want to use (other than 'Home')", defaultValue: 1 , required: false, displayDuringSetup: true)
 	}
     
@@ -189,11 +189,11 @@ def parse(String description) {
             sendEvent(name: "switch3", value: "auto");
         }
         
-        if (msg.body.contains("<record>\n<enable>0</enable>")) {
+        if (msg.body.contains("<record><enable>0</enable>")) {
         	log.debug "Video Recording Disabled"
             sendEvent(name: "switch4", value: "off");
         }
-        else if (msg.body.contains("<record>\n<enable>1</enable>")) {
+        else if (msg.body.contains("<record><enable>1</enable>")) {
         	log.debug "Video Recording Enabled"
             sendEvent(name: "switch4", value: "on");
         }
@@ -409,7 +409,7 @@ def videoCmd(int attr)
     
     log.debug "The Header is $headers"
     
- def path = "cgi/admin/recorder.cgi?recordEnable=${attr}"
+ def path = "/cgi/admin/recorder.cgi?recordEnable=${attr}&continuous=${attr}"
  log.debug "path is: $path"
   try {
     def hubAction = new physicalgraph.device.HubAction(
@@ -537,7 +537,7 @@ def nvOff() {
 
 def nvAuto() {
 	log.debug "Automatic Night Vision"
-    return nightCmd("Auto")    
+    return nightCmd("auto")    
     
 }
 
