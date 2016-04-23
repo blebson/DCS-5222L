@@ -15,7 +15,7 @@
  *
  */
 metadata {
-	definition (name: "DCS-5222L - Test", author: "blebson") {
+	definition (name: "DCS-5222L", author: "blebson") {
        
         capability "Image Capture"
 	    capability "Sensor"
