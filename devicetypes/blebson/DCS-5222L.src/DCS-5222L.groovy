@@ -892,5 +892,5 @@ def configure(){
 }
 
 def getInHomeURL() {
-   [InHomeURL: cameraRTSP]
+   [InHomeURL: "rtsp://${CameraUser}:${CameraPassword}@${VideoIP}:${VideoPort}/live1.sdp"]
 }
